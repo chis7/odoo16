@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_training_plan,access.training.plan,model_training_plan,,1,1,1,1
+access_type_of_training,access.type.of.training,model_type_of_training,,1,1,1,1
+access_field_of_study,access.field.of.study,model_field_of_study,,1,1,1,1
+access_level_of_study,access.level.of.study,model_level_of_study,,1,1,1,1
+access_training_plan_lines,access.training.plan.lines,model_training_plan_lines,,1,1,1,1

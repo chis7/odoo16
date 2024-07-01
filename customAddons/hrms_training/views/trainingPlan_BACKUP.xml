@@ -1,0 +1,150 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<odoo>-->
+
+<!--    <record id="training_plan_tree" model="ir.ui.view">-->
+<!--        <field name="name">training.plan.tree</field>-->
+<!--        <field name="model">training.plan</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree>-->
+<!--                <field name="name"/>-->
+<!--                <field name="employee_id"/>-->
+<!--                <field name="field_of_study"/>-->
+<!--                <field name="level_of_study"/>-->
+<!--                <field name="state"/>-->
+<!--            </tree>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="training_plan_form" model="ir.ui.view">-->
+<!--        <field name="name">training.plan.form</field>-->
+<!--        <field name="model">training.plan</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form>-->
+<!--                <header>-->
+<!--                    <button name="action_hrdc_approve_training_plan" data-hotkey="v"-->
+<!--                            string="Approve" class="btn-primary" type="object" context="{'validate_analytic': True}"-->
+<!--                            attrs="{'invisible': [('state', 'not in', ['hrdc'])]}"/>-->
+<!--                    <button name="action_hrdc_send_back_training_plan" data-hotkey="v"-->
+<!--                            string="Send Back" class="btn-primary" type="object" context="{'validate_analytic': True}"-->
+<!--                            attrs="{'invisible': [('state', 'not in', ['hrdc'])]}"/>-->
+<!--                    <button name="action_ps_approve_training_plan" data-hotkey="v"-->
+<!--                            string="Approve" class="btn-primary" type="object" context="{'validate_analytic': True}"-->
+<!--                            attrs="{'invisible': [('state', 'not in', ['ps'])]}"/>-->
+<!--                    <button name="action_ps_send_back_training_plan" data-hotkey="v"-->
+<!--                            string="Send Back" class="btn-primary" type="object" context="{'validate_analytic': True}"-->
+<!--                            attrs="{'invisible': [('state', 'not in', ['ps'])]}"/>-->
+<!--                    <button name="action_psmd_approve_training_plan" data-hotkey="v"-->
+<!--                            string="Approve" class="btn-primary" type="object" context="{'validate_analytic': True}"-->
+<!--                            attrs="{'invisible': [('state', 'not in', ['psmd'])]}"/>-->
+<!--                    <button name="action_psmd_send_back_training_plan" data-hotkey="v"-->
+<!--                            string="Send Back" class="btn-primary" type="object" context="{'validate_analytic': True}"-->
+<!--                            attrs="{'invisible': [('state', 'not in', ['psmd'])]}"/>-->
+<!--                    <field name="state" widget="statusbar" statusbar_visible="draft,hrdc,ps,psmd,done"-->
+<!--                           options="{'clickable':'1'}"/>-->
+<!--                </header>-->
+<!--                <sheet>-->
+<!--                    <group>-->
+<!--                        <group>-->
+<!--                            <field name="name"/>-->
+<!--                            <field name="employee_id"/>-->
+<!--                        </group>-->
+<!--                        <group>-->
+<!--                            <field name="field_of_study"/>-->
+<!--                            <field name="level_of_study"/>-->
+<!--                        </group>-->
+<!--                    </group>-->
+<!--                </sheet>-->
+<!--                <div class="oe_chatter">-->
+<!--                    <field name="message_follower_ids"/>-->
+<!--                    <field name="message_ids"/>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="training_plan_search" model="ir.ui.view">-->
+<!--        <field name="name">training.plan.search</field>-->
+<!--        <field name="model">training.plan</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <search string="Training Plans">-->
+<!--                <field name="name"/>-->
+<!--                <field name="employee_id"/>-->
+<!--                <field name="level_of_study"/>-->
+<!--                <field name="field_of_study"/>-->
+<!--                <separator/>-->
+<!--            </search>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    &lt;!&ndash; training plan action&ndash;&gt;-->
+<!--    <record id="training_plan_action" model="ir.actions.act_window">-->
+<!--        <field name="name">Training Plan</field>-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="res_model">training.plan</field>-->
+<!--        <field name="view_mode">tree,kanban,form</field>-->
+<!--        <field name="help" type="html">-->
+<!--            <p class="o_view_nocontent_smiling_face">-->
+<!--                create a training plan-->
+<!--            </p>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    &lt;!&ndash; Top menu item &ndash;&gt;-->
+<!--    <menuitem name="Training"-->
+<!--              id="training_root"-->
+<!--              sequence="-20">-->
+<!--    </menuitem>-->
+<!--    <menuitem id="training_plan_root"-->
+<!--              name="Training Plans"-->
+<!--              parent="training_root"-->
+<!--              action="training_plan_action"-->
+<!--              sequence="-20"/>-->
+<!--    <menuitem id="study_authority"-->
+<!--              name="Authority To Study"-->
+<!--              parent="training_root"-->
+<!--              action="training_plan_action"-->
+<!--              sequence="-20"/>-->
+<!--    <menuitem id="training_report"-->
+<!--              name="Training Report"-->
+<!--              parent="training_root"-->
+<!--              action="training_plan_action"-->
+<!--              sequence="-20"/>-->
+<!--    <menuitem id="training_configuration_root"-->
+<!--              name="Configuration"-->
+<!--              parent="training_root"-->
+<!--              action="training_plan_action"-->
+<!--              sequence="-20"/>-->
+<!--    <menuitem id="training_configuration_general"-->
+<!--              name="General"-->
+<!--              parent="training_configuration_root"-->
+<!--              action="training_plan_action"-->
+<!--              sequence="-20"/>-->
+
+<!--    <menuitem id="training_configuration_authorisation_status"-->
+<!--              name="Authorisation Status"-->
+<!--              parent="training_configuration_general"-->
+<!--              action="training_plan_action"-->
+<!--              sequence="-20"/>-->
+
+<!--    <menuitem id="training_configuration"-->
+<!--              name="Training"-->
+<!--              parent="training_configuration_root"-->
+<!--              action="training_plan_action"-->
+<!--              sequence="-20"/>-->
+<!--    <menuitem id="training_configuration_training_type"-->
+<!--              name="Type of Training"-->
+<!--              parent="training_configuration"-->
+<!--              action="type_of_training_action"-->
+<!--              sequence="-20"/>-->
+<!--    <menuitem id="training_configuration_field_of_study"-->
+<!--              name="Field of Study"-->
+<!--              parent="training_configuration"-->
+<!--              action="field_of_study_action"-->
+<!--              sequence="-20"/>-->
+<!--    <menuitem id="training_configuration_level_of_study"-->
+<!--              name="Level of Study"-->
+<!--              parent="training_configuration"-->
+<!--              action="field_of_study_action"-->
+<!--              sequence="-20"/>-->
+
+<!--</odoo>-->
