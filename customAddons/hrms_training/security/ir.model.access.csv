@@ -4,3 +4,5 @@ access_type_of_training,access.type.of.training,model_type_of_training,,1,1,1,1
 access_field_of_study,access.field.of.study,model_field_of_study,,1,1,1,1
 access_level_of_study,access.level.of.study,model_level_of_study,,1,1,1,1
 access_training_plan_lines,access.training.plan.lines,model_training_plan_lines,,1,1,1,1
+access_create_training_plan_wizard,access.create.training.plan.wizard,model_create_training_plan_wizard,,1,1,1,1
+access_create_training_plan_wizard_lines,access.create.training.plan.wizard.lines,model_create_training_plan_wizard_lines,,1,1,1,1

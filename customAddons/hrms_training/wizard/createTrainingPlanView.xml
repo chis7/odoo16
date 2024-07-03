@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_create_training_plan_form" model="ir.ui.view">
+        <field name="name">create.training.plan.wizard.form</field>
+        <field name="model">create.training.plan.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create New Training Plan">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="province"/>
+                        <field name="institution"/>
+                        <field name="yearOfPlan"/>
+                    </group>
+                    <notebook>
+                        <page string="Training Plan Entries" name="createTrainingPlanWizardLines">
+                            <field name="create_training_plan_wizard_line_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="employee_id"/>
+                                    <field name="nrcNumber"/>
+                                    <field name="pmecNumber"/>
+                                    <field name="gender" optional="hide"/>
+                                    <field name="position" optional="hide"/>
+                                    <field name="age" optional="hide"/>
+                                    <field name="job_description" optional="hide"/>
+                                    <field name="department" optional="hide"/>
+                                    <field name="priorityArea" optional="hide"/>
+                                    <field name="priorityRanking" optional="hide"/>
+                                    <field name="candidate_level_of_training" optional="hide"/>
+                                    <field name="level_of_training_proposed" optional="hide"/>
+                                    <field name="location_of_programme_proposed" optional="hide"/>
+                                    <field name="proposed_date_of_programme" optional="hide"/>
+                                    <field name="sponsor" optional="hide"/>
+                                    <field name="justification_of_training" optional="hide"/>
+                                    <field name="estimated_cost_per_year" optional="hide"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="employee_id"/>
+                                                <field name="nrcNumber"/>
+                                                <field name="pmecNumber"/>
+                                                <field name="gender"/>
+                                                <field name="position"/>
+                                                <field name="age"/>
+                                                <field name="job_description"/>
+                                                <field name="department"/>
+                                            </group>
+                                            <group>
+                                                <field name="priorityArea"/>
+                                                <field name="priorityRanking"/>
+                                                <field name="candidate_level_of_training"/>
+                                                <field name="level_of_training_proposed"/>
+                                                <field name="location_of_programme_proposed"/>
+                                                <field name="proposed_date_of_programme"/>
+                                                <field name="sponsor"/>
+                                                <field name="justification_of_training"/>
+                                                <field name="estimated_cost_per_year"/>
+                                            </group>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button name="action_save_training_plan_as_draft" confirm="Are you sure you want to save as draft?" string="Save as Draft" type="object" class="btn-primary"
+                            data-hotkey="q"/>
+<!--                    <button name="action_submit_training_plan_to_hrdc" confirm="Are you sure you want to submit for approval?" string="Submit for Approval" type="object" class="btn-primary"-->
+<!--                            data-hotkey="q"/>-->
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_create_training_plan" model="ir.actions.act_window">
+        <field name="name">Create Training Plan</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">create.training.plan.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_create_training_plan_form"/>
+        <field name="target">new</field>
+                <field name="context">{
+                    'dialog_size' : 'large',
+                    }
+                </field>
+    </record>
+</odoo>

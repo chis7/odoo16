@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models, _, SUPERUSER_ID
 
 
 class TrainingPlan(models.Model):
@@ -11,6 +12,7 @@ class TrainingPlan(models.Model):
     province = fields.Char(string="Province", required=True)
     institution = fields.Char(string="Institution", required=True)
     yearOfPlan = fields.Char(string="Year", required=True)
+    supervisor_id = fields.Many2one("hr.employee", string="Supervisor")
     reference = fields.Char(
         string="Reference",
         required=True, copy=False, readonly=True,
@@ -33,8 +35,10 @@ class TrainingPlan(models.Model):
     psComment = fields.Text(string="PS Comment")
     psmdComment = fields.Text(string="PSMD Comment")
 
+
     def action_save_training_plan_as_draft(self):
         self.write({'state': 'draft'})
+
 
     def action_submit_training_plan_to_hrdc(self):
         self.write({'state': 'hrdc'})
@@ -57,12 +61,21 @@ class TrainingPlan(models.Model):
     def action_psmd_send_back_training_plan(self):
         self.write({'state': 'ps'})
 
+
     @api.model
     def create(self, vals):
-        if vals.get('reference', _('Invalid')) == _('Invalid'):
-            vals['reference'] = self.env['ir.sequence'].next_by_code('training.plan') or _('Invalid')
+        current_year_month = datetime.now().strftime('%Y%m')
+        sequence_code = self.env['ir.sequence'].next_by_code('training.plan') or _('Invalid')
+        vals['reference'] = f"{current_year_month}-{sequence_code}"
         res = super(TrainingPlan, self).create(vals)
         return res
+
+    # @api.model
+    # def create(self, vals):
+    #     if vals.get('reference', _('Invalid')) == _('Invalid'):
+    #         vals['reference'] = self.env['ir.sequence'].next_by_code('training.plan') or _('Invalid')
+    #     res = super(TrainingPlan, self).create(vals)
+    #     return res
 
 class TrainingPlanLines(models.Model):
     _name = "training.plan.lines"

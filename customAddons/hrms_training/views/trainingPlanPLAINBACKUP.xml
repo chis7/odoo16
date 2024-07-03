@@ -6,7 +6,6 @@
         <field name="model">training.plan</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="reference"/>
                 <field name="name"/>
                 <field name="province"/>
                 <field name="institution"/>
@@ -62,11 +61,13 @@
 
                 </header>
                 <sheet>
-                    <div class="oe_title">
-                        <h3>
-                            <field name="reference"/>
-                        </h3>
-                    </div>
+                    <!--                    <div class="oe_title">-->
+
+                    <!--                        <h3>-->
+                    <!--                            <field name="yearOfPlan" readonly="1"/>-->
+                    <!--                            <field name="reference" readonly="1"/>-->
+                    <!--                        </h3>-->
+                    <!--                    </div>-->
                     <group context="{'validate_analytic': True}"
                            attrs="{'invisible': [('state', 'not in', ['draft'])]}">
                         <widget name="web_ribbon" title="Draft" bg_color="bg-danger"
@@ -80,8 +81,8 @@
                         <group>
                             <group>
                                 <field name="hrdcComment"/>
-                                <field name="psComment"/>
-                                <field name="psmdComment"/>
+                                <field name="psComment" />
+                                <field name="psmdComment" />
                             </group>
                         </group>
                     </group>
@@ -97,7 +98,7 @@
                         </group>
                         <group>
                             <field name="hrdcComment"/>
-                            <field name="psComment"/>
+                            <field name="psComment" />
                             <field name="psmdComment"/>
                         </group>
                     </group>
@@ -112,7 +113,7 @@
                             <field name="yearOfPlan"/>
                         </group>
                         <group>
-                            <field name="hrdcComment"/>
+                            <field name="hrdcComment" />
                             <field name="psComment"/>
                             <field name="psmdComment"/>
                         </group>
@@ -497,22 +498,17 @@
     <!-- Top menu item -->
     <menuitem name="Training"
               id="training_root"
-              sequence="-25">
+              sequence="-20">
     </menuitem>
     <menuitem id="training_plan_root"
               name="Training Plans"
               parent="training_root"
-              sequence="-21"/>
+              sequence="-20"/>
 
     <menuitem id="training_configuration_level_of_study"
               name="All Training Plans"
               parent="training_plan_root"
               action="training_plan_action"
-              sequence="-21"/>
-    <menuitem id="menu_create_training_plan"
-              name="CreateTraining Plan"
-              parent="training_plan_root"
-              action="action_create_training_plan"
               sequence="-20"/>
     <!--    <menuitem id="study_authority"-->
     <!--              name="Authority To Study"-->

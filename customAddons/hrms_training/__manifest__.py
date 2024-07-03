@@ -6,7 +6,7 @@
     'description': """Manage training data for the Civil Service""",
     'category': 'Generic Modules/Human Resources',
     'author': 'Chisenga Musonda',
-    'website': "https://www.moh.gov.zm",
+    'website': "",
     'depends': [
         'mail',
         'base',
@@ -15,7 +15,11 @@
     'data': [
         'security/ir.model.access.csv',
         'data/data.xml',
+        'wizard/createTrainingPlanView.xml',
         'views/trainingPlan.xml',
+        'views/trainingPlanApprovalHRDC.xml',
+        'views/trainingPlanApprovalPS.xml',
+        'views/trainingPlanApprovalPSMD.xml',
         'views/typeOfTraining.xml',
         'views/fieldOfStudy.xml',
         'views/levelOfStudy.xml',
