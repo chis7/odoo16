@@ -1,0 +1,297 @@
+<odoo>
+
+    <record id="view_training_kanban" model="ir.ui.view">
+        <field name="name">training.kanban</field>
+        <field name="model">training.application</field>
+        <field name="arch" type="xml">
+            <kanban class="oe_background_grey">
+                <field name="name"/>
+                <field name="type"/>
+                <field name="sponsor"/>
+                <field name="employee_id"/>
+                <field name="country_id"/>
+                <field name="sponsorship_type"/>
+                <field name="institution"/>
+                <field name="description"/>
+                <field name="description1"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="duration"/>
+                <field name="qualification"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+<!--                                <ul>-->
+<!--                                    <li>-->
+<!--                                        <strong>Training Name:</strong> <span t-field="record.name.value"/>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <strong>Type:</strong> <span t-field="record.type.value"/>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <strong>Sponsor:</strong> <span t-field="record.sponsor.value"/>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <strong>Employee:</strong> <span t-field="record.employee_id.value"/>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <strong>Country:</strong> <span t-field="record.country_id.value"/>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <strong>Sponsorship Type:</strong> <span t-field="record.sponsorship_type.value"/>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <strong>Institution:</strong> <span t-field="record.institution.value"/>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <strong>Description:</strong> <span t-field="record.description.value"/>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <strong>Description1:</strong> <span t-field="record.description1.value"/>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <strong>Start Date:</strong> <span t-field="record.start_date.value"/>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <strong>End Date:</strong> <span t-field="record.end_date.value"/>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <strong>Duration:</strong> <span t-field="record.duration.value"/>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <strong>Qualification:</strong> <span t-field="record.qualification.value"/>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <strong>Status:</strong> <span t-field="record.state.value"/>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_training_form" model="ir.ui.view">
+        <field name="name">training.form</field>
+        <field name="model">training.application</field>
+        <field name="arch" type="xml">
+
+            <form string="Training">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
+                    <button name="action_confirm" string="Confirm" confirm="Are you sure you want to Confirm?" type="object" class="oe_highlight" states="draft"/>
+                    <button name="action_done" string="Done" type="object" class="oe_highlight" states="confirm"/>
+                    <button name="action_draft" string="Draft" type="object" class="btn-primary" states="cancel"/>
+                    <button name="action_cancel" string="Cancel" confirm="Are you sure?" type="object" states="draft,done,confirm"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            <field name="type" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            <field name="sponsor" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            <field name="employee_id" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            <field name="supervisor_id" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            <field name="country_id" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            <field name="sponsorship_type" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            <field name="institution" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                        </group>
+                        <group>
+                            <field name="description" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            <field name="description1" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            <field name="start_date" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            <field name="end_date" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            <field name="duration" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            <field name="qualification" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+
+                        </group>
+
+                    </group>
+
+                    <notebook>
+                        <page string="HRD Review" name="HRD_review">
+                            <group>
+                                <field name="employee_type"  />
+                                <field name="confirmation_status"  />
+                            </group>
+
+                        </page>
+
+                        <page string="Supervisor Review" name="supervisor_review">
+
+                            <group>
+                                <field name="training_relevance" states="confirm" />
+                                <button name="action_supervisor_approve" string="Recommend" type="object" class="btn-primary" style="min-width: 100px;" states="confirm"/>
+
+
+                                <button name="action_reject" string="Reject" type="object" class="btn-danger" style="min-width: 100px;" states="confirm"/>
+                                <field name="rejection_comment" string="Rejection Comment" invsible="1" />
+
+                            </group>
+
+                        </page>
+                        <page string="HOD Review" name="hod_review">
+                            <group>
+                                <button name="action_hod_approve" string="Approve" type="object" class="oe_highlight" states="supervisor_approved"/>
+                                <field name="hod_comment" string="HOD Comment"/>
+
+                                 <button name="action_reject" string="Reject" type="object" class="btn-danger" style="min-width: 100px;" states="confirm"/>
+                                <field name="rejection_comment" string="Rejection Comment" invsible="1"/>
+
+                            </group>
+                        </page>
+
+                        <page string="PS Review" name="ps_review">
+                            <group>
+                                <button name="action_ps_approve" string="Approve" type="object" class="oe_highlight" states="hod_approved"/>
+
+                                 <button name="action_reject" string="Reject" type="object" class="btn-danger" style="min-width: 100px;" states="confirm"/>
+                                <field name="rejection_comment" string="Rejection Comment" invsible="1"/>
+
+                            </group>
+                        </page>
+
+                        <page string="Bonding Agreement" name="bonding_agreement" states="approved" >
+                            <group>
+                                <field name="bonding_date"/>
+                                <field name="bonding_start_date"/>
+                                <field name="bonding_end_date"/>
+                            </group>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="view_training_tree" model="ir.ui.view">
+        <field name="name">training.tree</field>
+        <field name="model">training.application</field>
+        <field name="arch" type="xml">
+            <tree string="Training">
+                <field name="name"/>
+                <field name="type"/>
+                <field name="sponsor"/>
+                <field name="employee_id"/>
+                <field name="country_id"/>
+                <field name="sponsorship_type"/>
+                <field name="institution"/>
+                <field name="description"/>
+                <field name="description1"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="duration"/>
+                <field name="qualification"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="training_search" model="ir.ui.view">
+        <field name="name">training.search</field>
+        <field name="model">training.application</field>
+        <field name="arch" type="xml">
+            <search string="Training">
+                <field name="name"/>
+                <field name="type"/>
+                <field name="sponsor"/>
+                <field name="employee_id"/>
+                <field name="sponsorship_type"/>
+                <field name="institution"/>
+                <field name="duration"/>
+                <separator/>
+                <filter string="Full Time" name="full_time" domain="[{'type', '=', 'full_time'}]" />
+                <filter string="Part Time" name="part_time" domain="[{'type', '=', 'part_time'}]" />
+                <filter string="Distance" name="distance" domain="[{'type', '=', 'distance'}]" />
+                <group expand="1" string="Group By">
+                    <filter string="Type" name="type" context="{'group_by':'type'}"/>
+                    <filter string="Sponsor" name="sponsor" context="{'group_by':'sponsor'}"/><filter string="Sponsorship Type" name="sponsorship_type" context="{'group_by':'sponsorship_type'}"/>
+                    <filter string="Institution" name="institution" context="{'group_by':'institution'}"/>
+                    <filter string="Duration" name="duration" context="{'group_by':'duration'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_training" model="ir.actions.act_window">
+        <field name="name">Trainings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">training.application</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new training application.
+            </p>
+        </field>
+    </record>
+
+<!--    <menuitem id="menu_training_root"-->
+<!--              name="Training"-->
+<!--              sequence="20"/>-->
+
+
+<!--    <menuitem id="menu_action_plan_root"-->
+<!--              name="Training Plan"-->
+<!--              parent="menu_training_root"-->
+<!--              sequence="10"/>-->
+
+<!--    <menuitem id="menu_action_plan_root1"-->
+<!--              name="Training Plan"-->
+<!--              parent="menu_action_plan_root"-->
+<!--              action="action_training"-->
+<!--              sequence="10"/>-->
+
+<!--    <menuitem id="menu_action_plan_root2"-->
+<!--              name="Training Plan 2"-->
+<!--              parent="menu_action_plan_root"-->
+<!--              action="action_training"-->
+<!--              sequence="10"/>-->
+
+    <menuitem id="menu_action_training_root"
+              name="Authority to Study"
+              parent="training_root"
+              sequence="-21"/>
+
+    <menuitem id="menu_action_training_root1"
+              name="Authority"
+              parent="menu_action_training_root"
+              action="action_training"
+              sequence="10"/>
+
+<!--    <menuitem id="menu_action_training_root2"-->
+<!--              name="Study"-->
+<!--              parent="menu_action_training_root"-->
+<!--              action="action_training"-->
+<!--              sequence="10"/>-->
+
+
+<!--    <menuitem id="menu_action_evaluation_root"-->
+<!--              name="Training Evaluation"-->
+<!--              parent="menu_training_root"-->
+<!--              action="action_training"-->
+<!--              sequence="10"/>-->
+
+<!--    <menuitem id="menu_action_eval_root1"-->
+<!--              name="Evaluation"-->
+<!--              parent="menu_action_evaluation_root"-->
+<!--              action="action_training"-->
+<!--              sequence="10"/>-->
+
+<!--    <menuitem id="menu_action_eval_root2"-->
+<!--              name="Evaluation Reports"-->
+<!--              parent="menu_action_evaluation_root"-->
+<!--              action="action_training"-->
+<!--              sequence="10"/>-->
+</odoo>

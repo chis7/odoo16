@@ -23,6 +23,7 @@
         'views/typeOfTraining.xml',
         'views/fieldOfStudy.xml',
         'views/levelOfStudy.xml',
+        'views/training_views.xml',
     ],
     'demo': [],
     'images': ["static/description/banner.png"],
