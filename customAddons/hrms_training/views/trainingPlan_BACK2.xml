@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="training_plan_tree" model="ir.ui.view">
+        <field name="name">training.plan.tree</field>
+        <field name="model">training.plan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="province"/>
+                <field name="institution"/>
+                <field name="yearOfPlan"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="training_plan_form" model="ir.ui.view">
+        <field name="name">training.plan.form</field>
+        <field name="model">training.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_save_training_plan_as_draft" data-hotkey="v"
+                            confirm="Are you sure you want to save as draft?"
+                            string="Save as Draft" class="btn-primary" type="object"
+                            context="{'validate_analytic': True}"
+                            attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                    <button name="action_submit_training_plan_to_hrdc" data-hotkey="v"
+                            confirm="Are you sure you want to make this submission?"
+                            string="Save and Submit" class="btn-primary" type="object"
+                            context="{'validate_analytic': True}"
+                            attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                    <button name="action_hrdc_approve_training_plan" data-hotkey="v"
+                            confirm="Are you sure you want to make this approval?"
+                            string="Approve" class="btn-primary" type="object" context="{'validate_analytic': True}"
+                            attrs="{'invisible': [('state', 'not in', ['hrdc'])]}"/>
+                    <button name="action_hrdc_send_back_training_plan" data-hotkey="v"
+                            confirm="Are you sure you want to send back?"
+                            string="Send Back" class="btn-primary" type="object" context="{'validate_analytic': True}"
+                            attrs="{'invisible': [('state', 'not in', ['hrdc'])]}"/>
+                    <button name="action_ps_approve_training_plan" data-hotkey="v"
+                            confirm="Are you sure you want to make this approval?"
+                            string="Approve" class="btn-primary" type="object" context="{'validate_analytic': True}"
+                            attrs="{'invisible': [('state', 'not in', ['ps'])]}"/>
+                    <button name="action_ps_send_back_training_plan" data-hotkey="v"
+                            confirm="Are you sure you want to send back?"
+                            string="Send Back" class="btn-primary" type="object" context="{'validate_analytic': True}"
+                            attrs="{'invisible': [('state', 'not in', ['ps'])]}"/>
+                    <button name="action_psmd_approve_training_plan" data-hotkey="v"
+                            confirm="Are you sure you want to make this approval?"
+                            string="Approve" class="btn-primary" type="object" context="{'validate_analytic': True}"
+                            attrs="{'invisible': [('state', 'not in', ['psmd'])]}"/>
+                    <button name="action_psmd_send_back_training_plan" data-hotkey="v"
+                            confirm="Are you sure you want to send back?"
+                            string="Send Back" class="btn-primary" type="object" context="{'validate_analytic': True}"
+                            attrs="{'invisible': [('state', 'not in', ['psmd'])]}"/>
+                    <field name="state" context="{'validate_analytic': True}" widget="statusbar"
+                           statusbar_visible="draft,hrdc,ps,psmd,approved"
+                           options="{'clickable':'1'}"/>
+
+                </header>
+                <sheet>
+                    <!--                    <div class="oe_title">-->
+
+                    <!--                        <h3>-->
+                    <!--                            <field name="yearOfPlan" readonly="1"/>-->
+                    <!--                            <field name="reference" readonly="1"/>-->
+                    <!--                        </h3>-->
+                    <!--                    </div>-->
+                    <group context="{'validate_analytic': True}"
+                           attrs="{'invisible': [('state', 'not in', ['draft'])]}">
+                        <widget name="web_ribbon" title="Draft" bg_color="bg-danger"
+                                attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="province"/>
+                            <field name="institution"/>
+                            <field name="yearOfPlan"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="hrdcComment" readonly="1"/>
+                                <field name="psComment" readonly="1"/>
+                                <field name="psmdComment" readonly="1"/>
+                            </group>
+                        </group>
+                    </group>
+                    <group context="{'validate_analytic': True}"
+                           attrs="{'invisible': [('state', 'not in', ['hrdc'])]}">
+                        <widget name="web_ribbon" title="Pending HRDC Approval" bg_color="bg-danger"
+                                attrs="{'invisible': [('state', 'not in', ['hrdc'])]}"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="province"/>
+                            <field name="institution"/>
+                            <field name="yearOfPlan"/>
+                        </group>
+                        <group>
+                            <field name="hrdcComment"/>
+                            <field name="psComment" readonly="1"/>
+                            <field name="psmdComment" readonly="1"/>
+                        </group>
+                    </group>
+                    <group context="{'validate_analytic': True}"
+                           attrs="{'invisible': [('state', 'not in', ['ps'])]}">
+                        <widget name="web_ribbon" title="Pending PS Approval" bg_color="bg-danger"
+                                attrs="{'invisible': [('state', 'not in', ['ps'])]}"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="province"/>
+                            <field name="institution"/>
+                            <field name="yearOfPlan"/>
+                        </group>
+                        <group>
+                            <field name="hrdcComment" readonly="1"/>
+                            <field name="psComment"/>
+                            <field name="psmdComment" readonly="1"/>
+                        </group>
+                    </group>
+                    <group context="{'validate_analytic': True}"
+                           attrs="{'invisible': [('state', 'not in', ['psmd'])]}">
+                        <widget name="web_ribbon" title="Pending PSMD Approval" bg_color="bg-danger"
+                                attrs="{'invisible': [('state', 'not in', ['psmd'])]}"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="province"/>
+                            <field name="institution"/>
+                            <field name="yearOfPlan"/>
+                        </group>
+                        <group>
+                            <field name="hrdcComment" readonly="1"/>
+                            <field name="psComment" readonly="1"/>
+                            <field name="psmdComment"/>
+                        </group>
+                    </group>
+                    <group context="{'validate_analytic': True}"
+                           attrs="{'invisible': [('state', 'not in', ['approved'])]}">
+                        <widget name="web_ribbon" title="Approved" bg_color="bg-success"
+                                attrs="{'invisible': [('state', 'not in', ['approved'])]}"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="province"/>
+                            <field name="institution"/>
+                            <field name="yearOfPlan"/>
+                        </group>
+                        <group>
+                            <field name="hrdcComment" readonly="1"/>
+                            <field name="psComment" readonly="1"/>
+                            <field name="psmdComment" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook context="{'validate_analytic': True}"
+                              attrs="{'invisible': [('state', 'not in', ['draft'])]}">
+                        <page string="Training Plan Entries" name="trainingPlanLines">
+                            <field name="training_plan_line_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="employee_id"/>
+                                    <field name="nrcNumber"/>
+                                    <field name="pmecNumber"/>
+                                    <field name="gender"/>
+                                    <field name="position"/>
+                                    <field name="age" optional="hide"/>
+                                    <field name="job_description" optional="hide"/>
+                                    <field name="department" optional="hide"/>
+                                    <field name="priorityArea" optional="hide"/>
+                                    <field name="priorityRanking" optional="hide"/>
+                                    <field name="candidate_level_of_training" optional="hide"/>
+                                    <field name="level_of_training_proposed" optional="hide"/>
+                                    <field name="location_of_programme_proposed" optional="hide"/>
+                                    <field name="proposed_date_of_programme" optional="hide"/>
+                                    <field name="sponsor" optional="hide"/>
+                                    <field name="justification_of_training" optional="hide"/>
+                                    <field name="estimated_cost_per_year" optional="hide"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="employee_id"/>
+                                                <field name="nrcNumber"/>
+                                                <field name="pmecNumber"/>
+                                                <field name="gender"/>
+                                                <field name="position"/>
+                                                <field name="age"/>
+                                                <field name="job_description"/>
+                                                <field name="department"/>
+                                            </group>
+                                            <group>
+                                                <field name="priorityArea"/>
+                                                <field name="priorityRanking"/>
+                                                <field name="candidate_level_of_training"/>
+                                                <field name="level_of_training_proposed"/>
+                                                <field name="location_of_programme_proposed"/>
+                                                <field name="proposed_date_of_programme"/>
+                                                <field name="sponsor"/>
+                                                <field name="justification_of_training"/>
+                                                <field name="estimated_cost_per_year"/>
+                                            </group>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                    <!--                    <notebook context="{'validate_analytic': True}"-->
+                    <!--                              attrs="{'invisible': [('state', 'not in', ['hrdc'])]}">-->
+                    <!--                        <page string="Training Plan Entries" name="trainingPlanLines">-->
+                    <!--                            <field name="training_plan_line_ids" readonly="1">-->
+                    <!--                                <tree>-->
+                    <!--                                    <field name="name"/>-->
+                    <!--                                    <field name="employee_id"/>-->
+                    <!--                                    <field name="nrcNumber"/>-->
+                    <!--                                    <field name="pmecNumber"/>-->
+                    <!--                                    <field name="gender"/>-->
+                    <!--                                    <field name="position"/>-->
+                    <!--                                    <field name="age" optional="hide"/>-->
+                    <!--                                    <field name="job_description" optional="hide"/>-->
+                    <!--                                    <field name="department" optional="hide"/>-->
+                    <!--                                    <field name="priorityArea" optional="hide"/>-->
+                    <!--                                    <field name="priorityRanking" optional="hide"/>-->
+                    <!--                                    <field name="candidate_level_of_training" optional="hide"/>-->
+                    <!--                                    <field name="level_of_training_proposed" optional="hide"/>-->
+                    <!--                                    <field name="location_of_programme_proposed" optional="hide"/>-->
+                    <!--                                    <field name="proposed_date_of_programme" optional="hide"/>-->
+                    <!--                                    <field name="sponsor" optional="hide"/>-->
+                    <!--                                    <field name="justification_of_training" optional="hide"/>-->
+                    <!--                                    <field name="estimated_cost_per_year" optional="hide"/>-->
+                    <!--                                </tree>-->
+                    <!--                                <form>-->
+                    <!--                                    <sheet>-->
+                    <!--                                        <group>-->
+                    <!--                                            <group>-->
+                    <!--                                                <field name="name"/>-->
+                    <!--                                                <field name="employee_id"/>-->
+                    <!--                                                <field name="nrcNumber"/>-->
+                    <!--                                                <field name="pmecNumber"/>-->
+                    <!--                                                <field name="gender"/>-->
+                    <!--                                                <field name="position"/>-->
+                    <!--                                                <field name="age" optional="hide"/>-->
+                    <!--                                                <field name="job_description" optional="hide"/>-->
+                    <!--                                                <field name="department" optional="hide"/>-->
+                    <!--                                            </group>-->
+                    <!--                                            <group>-->
+                    <!--                                                <field name="priorityArea" optional="hide"/>-->
+                    <!--                                                <field name="priorityRanking" optional="hide"/>-->
+                    <!--                                                <field name="candidate_level_of_training" optional="hide"/>-->
+                    <!--                                                <field name="level_of_training_proposed" optional="hide"/>-->
+                    <!--                                                <field name="location_of_programme_proposed" optional="hide"/>-->
+                    <!--                                                <field name="proposed_date_of_programme" optional="hide"/>-->
+                    <!--                                                <field name="sponsor" optional="hide"/>-->
+                    <!--                                                <field name="justification_of_training" optional="hide"/>-->
+                    <!--                                                <field name="estimated_cost_per_year" optional="hide"/>-->
+                    <!--                                            </group>-->
+                    <!--                                        </group>-->
+                    <!--                                    </sheet>-->
+                    <!--                                </form>-->
+                    <!--                            </field>-->
+                    <!--                        </page>-->
+                    <!--                    </notebook>-->
+                    <!--                    <notebook context="{'validate_analytic': True}"-->
+                    <!--                              attrs="{'invisible': [('state', 'not in', ['ps'])]}">-->
+                    <!--                        <page string="Training Plan Entries" name="trainingPlanLines">-->
+                    <!--                            <field name="training_plan_line_ids" readonly="1">-->
+                    <!--                                <tree>-->
+                    <!--                                    <field name="name"/>-->
+                    <!--                                    <field name="employee_id"/>-->
+                    <!--                                    <field name="nrcNumber"/>-->
+                    <!--                                    <field name="pmecNumber"/>-->
+                    <!--                                    <field name="gender"/>-->
+                    <!--                                    <field name="position"/>-->
+                    <!--                                    <field name="age" optional="hide"/>-->
+                    <!--                                    <field name="job_description" optional="hide"/>-->
+                    <!--                                    <field name="department" optional="hide"/>-->
+                    <!--                                    <field name="priorityArea" optional="hide"/>-->
+                    <!--                                    <field name="priorityRanking" optional="hide"/>-->
+                    <!--                                    <field name="candidate_level_of_training" optional="hide"/>-->
+                    <!--                                    <field name="level_of_training_proposed" optional="hide"/>-->
+                    <!--                                    <field name="location_of_programme_proposed" optional="hide"/>-->
+                    <!--                                    <field name="proposed_date_of_programme" optional="hide"/>-->
+                    <!--                                    <field name="sponsor" optional="hide"/>-->
+                    <!--                                    <field name="justification_of_training" optional="hide"/>-->
+                    <!--                                    <field name="estimated_cost_per_year" optional="hide"/>-->
+                    <!--                                </tree>-->
+                    <!--                                <form>-->
+                    <!--                                    <sheet>-->
+                    <!--                                        <group>-->
+                    <!--                                            <group>-->
+                    <!--                                                <field name="name"/>-->
+                    <!--                                                <field name="employee_id"/>-->
+                    <!--                                                <field name="nrcNumber"/>-->
+                    <!--                                                <field name="pmecNumber"/>-->
+                    <!--                                                <field name="gender"/>-->
+                    <!--                                                <field name="position"/>-->
+                    <!--                                                <field name="age" optional="hide"/>-->
+                    <!--                                                <field name="job_description" optional="hide"/>-->
+                    <!--                                                <field name="department" optional="hide"/>-->
+                    <!--                                            </group>-->
+                    <!--                                            <group>-->
+                    <!--                                                <field name="priorityArea" optional="hide"/>-->
+                    <!--                                                <field name="priorityRanking" optional="hide"/>-->
+                    <!--                                                <field name="candidate_level_of_training" optional="hide"/>-->
+                    <!--                                                <field name="level_of_training_proposed" optional="hide"/>-->
+                    <!--                                                <field name="location_of_programme_proposed" optional="hide"/>-->
+                    <!--                                                <field name="proposed_date_of_programme" optional="hide"/>-->
+                    <!--                                                <field name="sponsor" optional="hide"/>-->
+                    <!--                                                <field name="justification_of_training" optional="hide"/>-->
+                    <!--                                                <field name="estimated_cost_per_year" optional="hide"/>-->
+                    <!--                                            </group>-->
+                    <!--                                        </group>-->
+                    <!--                                    </sheet>-->
+                    <!--                                </form>-->
+                    <!--                            </field>-->
+                    <!--                        </page>-->
+                    <!--                    </notebook>-->
+                    <!--                    <notebook context="{'validate_analytic': True}"-->
+                    <!--                              attrs="{'invisible': [('state', 'not in', ['psmd'])]}">-->
+                    <!--                        <page string="Training Plan Entries" name="trainingPlanLines">-->
+                    <!--                            <field name="training_plan_line_ids" readonly="1">-->
+                    <!--                                <tree>-->
+                    <!--                                    <field name="name"/>-->
+                    <!--                                    <field name="employee_id"/>-->
+                    <!--                                    <field name="nrcNumber"/>-->
+                    <!--                                    <field name="pmecNumber"/>-->
+                    <!--                                    <field name="gender"/>-->
+                    <!--                                    <field name="position"/>-->
+                    <!--                                    <field name="age" optional="hide"/>-->
+                    <!--                                    <field name="job_description" optional="hide"/>-->
+                    <!--                                    <field name="department" optional="hide"/>-->
+                    <!--                                    <field name="priorityArea" optional="hide"/>-->
+                    <!--                                    <field name="priorityRanking" optional="hide"/>-->
+                    <!--                                    <field name="candidate_level_of_training" optional="hide"/>-->
+                    <!--                                    <field name="level_of_training_proposed" optional="hide"/>-->
+                    <!--                                    <field name="location_of_programme_proposed" optional="hide"/>-->
+                    <!--                                    <field name="proposed_date_of_programme" optional="hide"/>-->
+                    <!--                                    <field name="sponsor" optional="hide"/>-->
+                    <!--                                    <field name="justification_of_training" optional="hide"/>-->
+                    <!--                                    <field name="estimated_cost_per_year" optional="hide"/>-->
+                    <!--                                </tree>-->
+                    <!--                                <form>-->
+                    <!--                                    <sheet>-->
+                    <!--                                        <group>-->
+                    <!--                                            <group>-->
+                    <!--                                                <field name="name"/>-->
+                    <!--                                                <field name="employee_id"/>-->
+                    <!--                                                <field name="nrcNumber"/>-->
+                    <!--                                                <field name="pmecNumber"/>-->
+                    <!--                                                <field name="gender"/>-->
+                    <!--                                                <field name="position"/>-->
+                    <!--                                                <field name="age" optional="hide"/>-->
+                    <!--                                                <field name="job_description" optional="hide"/>-->
+                    <!--                                                <field name="department" optional="hide"/>-->
+                    <!--                                            </group>-->
+                    <!--                                            <group>-->
+                    <!--                                                <field name="priorityArea" optional="hide"/>-->
+                    <!--                                                <field name="priorityRanking" optional="hide"/>-->
+                    <!--                                                <field name="candidate_level_of_training" optional="hide"/>-->
+                    <!--                                                <field name="level_of_training_proposed" optional="hide"/>-->
+                    <!--                                                <field name="location_of_programme_proposed" optional="hide"/>-->
+                    <!--                                                <field name="proposed_date_of_programme" optional="hide"/>-->
+                    <!--                                                <field name="sponsor" optional="hide"/>-->
+                    <!--                                                <field name="justification_of_training" optional="hide"/>-->
+                    <!--                                                <field name="estimated_cost_per_year" optional="hide"/>-->
+                    <!--                                            </group>-->
+                    <!--                                        </group>-->
+                    <!--                                    </sheet>-->
+                    <!--                                </form>-->
+                    <!--                            </field>-->
+                    <!--                        </page>-->
+                    <!--                    </notebook>-->
+                    <!--                    <notebook context="{'validate_analytic': True}"-->
+                    <!--                              attrs="{'invisible': [('state', 'not in', ['approved'])]}">-->
+                    <!--                        <page string="Training Plan Entries" name="trainingPlanLines">-->
+                    <!--                            <field name="training_plan_line_ids" readonly="1">-->
+                    <!--                                <tree>-->
+                    <!--                                    <field name="name"/>-->
+                    <!--                                    <field name="employee_id"/>-->
+                    <!--                                    <field name="nrcNumber"/>-->
+                    <!--                                    <field name="pmecNumber"/>-->
+                    <!--                                    <field name="gender"/>-->
+                    <!--                                    <field name="position"/>-->
+                    <!--                                    <field name="age" optional="hide"/>-->
+                    <!--                                    <field name="job_description" optional="hide"/>-->
+                    <!--                                    <field name="department" optional="hide"/>-->
+                    <!--                                    <field name="priorityArea" optional="hide"/>-->
+                    <!--                                    <field name="priorityRanking" optional="hide"/>-->
+                    <!--                                    <field name="candidate_level_of_training" optional="hide"/>-->
+                    <!--                                    <field name="level_of_training_proposed" optional="hide"/>-->
+                    <!--                                    <field name="location_of_programme_proposed" optional="hide"/>-->
+                    <!--                                    <field name="proposed_date_of_programme" optional="hide"/>-->
+                    <!--                                    <field name="sponsor" optional="hide"/>-->
+                    <!--                                    <field name="justification_of_training" optional="hide"/>-->
+                    <!--                                    <field name="estimated_cost_per_year" optional="hide"/>-->
+                    <!--                                </tree>-->
+                    <!--                                <form>-->
+                    <!--                                    <sheet>-->
+                    <!--                                        <group>-->
+                    <!--                                            <group>-->
+                    <!--                                                <field name="name"/>-->
+                    <!--                                                <field name="employee_id"/>-->
+                    <!--                                                <field name="nrcNumber"/>-->
+                    <!--                                                <field name="pmecNumber"/>-->
+                    <!--                                                <field name="gender"/>-->
+                    <!--                                                <field name="position"/>-->
+                    <!--                                                <field name="age" optional="hide"/>-->
+                    <!--                                                <field name="job_description" optional="hide"/>-->
+                    <!--                                                <field name="department" optional="hide"/>-->
+                    <!--                                            </group>-->
+                    <!--                                            <group>-->
+                    <!--                                                <field name="priorityArea" optional="hide"/>-->
+                    <!--                                                <field name="priorityRanking" optional="hide"/>-->
+                    <!--                                                <field name="candidate_level_of_training" optional="hide"/>-->
+                    <!--                                                <field name="level_of_training_proposed" optional="hide"/>-->
+                    <!--                                                <field name="location_of_programme_proposed" optional="hide"/>-->
+                    <!--                                                <field name="proposed_date_of_programme" optional="hide"/>-->
+                    <!--                                                <field name="sponsor" optional="hide"/>-->
+                    <!--                                                <field name="justification_of_training" optional="hide"/>-->
+                    <!--                                                <field name="estimated_cost_per_year" optional="hide"/>-->
+                    <!--                                            </group>-->
+                    <!--                                        </group>-->
+                    <!--                                    </sheet>-->
+                    <!--                                </form>-->
+                    <!--                            </field>-->
+                    <!--                        </page>-->
+                    <!--                    </notebook>-->
+                </sheet>
+                <div class="oe_chatter" context="{'validate_analytic': True}">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="training_plan_search" model="ir.ui.view">
+        <field name="name">training.plan.search</field>
+        <field name="model">training.plan</field>
+        <field name="arch" type="xml">
+            <search string="Training Plans">
+
+                <field name="name"/>
+                <field name="province"/>
+                <field name="institution"/>
+                <field name="yearOfPlan"/>
+                <searchpanel>
+                    <field name="state" select="multi" string="Status" enable_counters="1"/>
+                </searchpanel>
+
+                <!--                <field name="priorityRanking"/>-->
+                <!--                <field name="priorityArea"/>-->
+                <!--                <field name="department"/>-->
+                <!--                <field name="candidateName"/>-->
+                <!--                <field name="nrcNumber"/>-->
+                <!--                <field name="pmecNumber"/>-->
+                <!--                <field name="gender"/>-->
+                <!--                <field name="position"/>-->
+                <!--                <field name="jobDescription"/>-->
+                <!--                <field name="age"/>-->
+                <!--                <field name="candidateLevelOfTraining"/>-->
+                <!--                <field name="trainingProposed"/>-->
+                <!--                <field name="levelOfTrainingProposed"/>-->
+                <!--                <field name="locationOfProgrammeProposed"/>-->
+                <!--                <field name="proposedDateOfProgramme"/>-->
+                <!--                <field name="sponsor"/>-->
+                <!--                <field name="justificationOfTraining"/>-->
+                <!--                <field name="estimatedCostPerYear"/>-->
+                <separator/>
+            </search>
+        </field>
+    </record>
+
+    <!--                <field name="name"/>-->
+    <!--                <field name="province"/>-->
+    <!--                <field name="institution"/>-->
+    <!--                <field name="yearOfPlan"/>-->
+    <!--                <separator/>-->
+
+    <!--                <searchpanel>-->
+    <!--                    <field name="state" select="multi" string="Status" enable_counters="1"/>-->
+    <!--                </searchpanel>-->
+
+
+    <!-- training plan action-->
+    <record id="training_plan_action" model="ir.actions.act_window">
+        <field name="name">Training Plan</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">training.plan</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                create a training plan
+            </p>
+        </field>
+    </record>
+
+    <!-- Top menu item -->
+    <menuitem name="Training"
+              id="training_root"
+              sequence="-20">
+    </menuitem>
+    <menuitem id="training_plan_root"
+              name="Training Plans"
+              parent="training_root"
+              sequence="-20"/>
+
+    <menuitem id="training_configuration_level_of_study"
+              name="Training Plans"
+              parent="training_plan_root"
+              action="training_plan_action"
+              sequence="-20"/>
+    <!--    <menuitem id="study_authority"-->
+    <!--              name="Authority To Study"-->
+    <!--              parent="training_root"-->
+    <!--              action="training_plan_action"-->
+    <!--              sequence="-20"/>-->
+    <!--    <menuitem id="training_report"-->
+    <!--              name="Training Report"-->
+    <!--              parent="training_root"-->
+    <!--              action="training_plan_action"-->
+    <!--              sequence="-20"/>-->
+    <!--    <menuitem id="training_configuration_root"-->
+    <!--              name="Configuration"-->
+    <!--              parent="training_root"-->
+    <!--              action="training_plan_action"-->
+    <!--              sequence="-20"/>-->
+    <!--    <menuitem id="training_configuration_general"-->
+    <!--              name="General"-->
+    <!--              parent="training_configuration_root"-->
+    <!--              action="training_plan_action"-->
+    <!--              sequence="-20"/>-->
+    <!--    <menuitem id="training_configuration_authorisation_status"-->
+    <!--              name="Authorisation Status"-->
+    <!--              parent="training_configuration_general"-->
+    <!--              action="training_plan_action"-->
+    <!--              sequence="-20"/>-->
+    <!--    <menuitem id="training_configuration"-->
+    <!--              name="Training"-->
+    <!--              parent="training_configuration_root"-->
+    <!--              action="training_plan_action"-->
+    <!--              sequence="-20"/>-->
+    <!--    <menuitem id="training_configuration_training_type"-->
+    <!--              name="Type of Training"-->
+    <!--              parent="training_configuration"-->
+    <!--              action="type_of_training_action"-->
+    <!--              sequence="-20"/>-->
+    <!--    <menuitem id="training_configuration_field_of_study"-->
+    <!--              name="Field of Study"-->
+    <!--              parent="training_configuration"-->
+    <!--              action="field_of_study_action"-->
+    <!--              sequence="-20"/>-->
+    <!--    <menuitem id="training_configuration_level_of_study"-->
+    <!--              name="Level of Study"-->
+    <!--              parent="training_configuration"-->
+    <!--              action="field_of_study_action"-->
+    <!--              sequence="-20"/>-->
+
+</odoo>
