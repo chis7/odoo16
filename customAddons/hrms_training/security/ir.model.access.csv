@@ -7,3 +7,6 @@ access_training_plan_lines,access.training.plan.lines,model_training_plan_lines,
 access_create_training_plan_wizard,access.create.training.plan.wizard,model_create_training_plan_wizard,,1,1,1,1
 access_create_training_plan_wizard_lines,access.create.training.plan.wizard.lines,model_create_training_plan_wizard_lines,,1,1,1,1
 access_training_application,access.training.application,model_training_application,,1,1,1,1
+access_training_course_evaluation,access.training.course.evaluation,model_training_course_evaluation,,1,1,1,1
+access_training_post_evaluation,access_training_post_evaluation,model_training_post_evaluation,,1,1,1,1
+access_training_supervisor_post_evaluation,access_training_supervisor_post_evaluation,model_training_supervisor_post_evaluation,,1,1,1,1
