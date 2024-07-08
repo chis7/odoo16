@@ -29,11 +29,12 @@ class TrainingPlan(models.Model):
         ],
         default='draft',
         string="Status",
-        required=True
+        required=True,
+        tracking=True
     )
-    hrdcComment = fields.Text(string="HRDC Comment")
-    psComment = fields.Text(string="PS Comment")
-    psmdComment = fields.Text(string="PSMD Comment")
+    hrdcComment = fields.Text(string="HRDC Comment", tracking=True)
+    psComment = fields.Text(string="PS Comment", tracking=True)
+    psmdComment = fields.Text(string="PSMD Comment", tracking=True)
 
 
     def action_save_training_plan_as_draft(self):
