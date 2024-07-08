@@ -42,54 +42,33 @@ class CreateTrainingPlanWizard(models.TransientModel):
         }
         training_plan_record = self.env['training.plan'].create(vals)
         record_id = training_plan_record.id
-        vals_lines = {
-            'training_plan_id': record_id,
-            'name': self.create_training_plan_wizard_line_ids.name,
-            'employee_id': self.create_training_plan_wizard_line_ids.employee_id.id,
-            'nrcNumber': self.create_training_plan_wizard_line_ids.nrcNumber,
-            'pmecNumber': self.create_training_plan_wizard_line_ids.pmecNumber,
-            'gender': self.create_training_plan_wizard_line_ids.gender,
-            'position': self.create_training_plan_wizard_line_ids.position,
-            'age': self.create_training_plan_wizard_line_ids.age,
-            'job_description': self.create_training_plan_wizard_line_ids.job_description,
-            'department': self.create_training_plan_wizard_line_ids.department,
-            'priorityArea': self.create_training_plan_wizard_line_ids.priorityArea,
-            'priorityRanking': self.create_training_plan_wizard_line_ids.priorityRanking,
-            'candidate_level_of_training': self.create_training_plan_wizard_line_ids.candidate_level_of_training,
-            'level_of_training_proposed': self.create_training_plan_wizard_line_ids.level_of_training_proposed,
-            'location_of_programme_proposed': self.create_training_plan_wizard_line_ids.location_of_programme_proposed.id,
-            'proposed_date_of_programme': self.create_training_plan_wizard_line_ids.proposed_date_of_programme,
-            'sponsor': self.create_training_plan_wizard_line_ids.sponsor.id,
-            'justification_of_training': self.create_training_plan_wizard_line_ids.justification_of_training,
-            'estimated_cost_per_year': self.create_training_plan_wizard_line_ids.estimated_cost_per_year,
+        lines_to_create = []
+        for line in self.create_training_plan_wizard_line_ids:
+            vals_lines = {
+                'training_plan_id': record_id,
+                'name': line.create_training_plan_wizard_line_ids.name,
+                'employee_id': line.create_training_plan_wizard_line_ids.employee_id.id,
+                'nrcNumber': line.create_training_plan_wizard_line_ids.nrcNumber,
+                'pmecNumber': line.create_training_plan_wizard_line_ids.pmecNumber,
+                'gender': line.create_training_plan_wizard_line_ids.gender,
+                'position': line.create_training_plan_wizard_line_ids.position,
+                'age': line.create_training_plan_wizard_line_ids.age,
+                'job_description': line.create_training_plan_wizard_line_ids.job_description,
+                'department': line.create_training_plan_wizard_line_ids.department,
+                'priorityArea': line.create_training_plan_wizard_line_ids.priorityArea,
+                'priorityRanking': line.create_training_plan_wizard_line_ids.priorityRanking,
+                'candidate_level_of_training': line.create_training_plan_wizard_line_ids.candidate_level_of_training,
+                'level_of_training_proposed': line.create_training_plan_wizard_line_ids.level_of_training_proposed,
+                'location_of_programme_proposed': line.create_training_plan_wizard_line_ids.location_of_programme_proposed.id,
+                'proposed_date_of_programme': line.create_training_plan_wizard_line_ids.proposed_date_of_programme,
+                'sponsor': line.create_training_plan_wizard_line_ids.sponsor.id,
+                'justification_of_training': line.create_training_plan_wizard_line_ids.justification_of_training,
+                'estimated_cost_per_year': line.create_training_plan_wizard_line_ids.estimated_cost_per_year,
 
-        }
-        self.env['training.plan.lines'].create(vals_lines)
-
-        # valsLines = {
-        #     'training_plan_id': record_id,
-        #     'name': self.name,
-        #     'employee_id': self.employee_id,
-        #     'nrcNumber': self.nrcNumber,
-        #     'pmecNumber': self.pmecNumber,
-        #     'gender': self.gender,
-        #     'position': self.position,
-        #     'job_description': self.job_description,
-        #     'department': self.department,
-        #     'priorityArea': self.priorityArea,
-        #     'priorityRanking': self.priorityRanking,
-        #     'candidate_level_of_training': self.candidate_level_of_training,
-        #     'level_of_training_proposed': self.level_of_training_proposed,
-        #     'location_of_programme_proposed': self.location_of_programme_proposed,
-        #     'proposed_date_of_programme': self.proposed_date_of_programme,
-        #     'sponsor': self.sponsor,
-        #     'justification_of_training': self.justification_of_training,
-        #     'estimated_cost_per_year': self.estimated_cost_per_year,
-        #     'state': 'hrdc'
-        # }
-        # self.env['training.plan.lines'].create(valsLines)
-        # self.write({'state': 'draft'})
-
+            }
+            lines_to_create.append(vals_lines)
+        if lines_to_create:
+            self.env['training.plan.lines'].create(lines_to_create)
 
 
     def action_submit_training_plan_to_hrdc(self):

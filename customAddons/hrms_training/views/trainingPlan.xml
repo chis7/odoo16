@@ -207,7 +207,7 @@
                     <notebook context="{'validate_analytic': True}"
                               attrs="{'invisible': [('state', 'not in', ['hrdc'])]}">
                         <page string="Training Plan Entries" name="trainingPlanLines">
-                            <field name="training_plan_line_ids" readonly="1">
+                            <field name="training_plan_line_ids" >
                                 <tree>
                                     <field name="name"/>
                                     <field name="employee_id"/>
@@ -262,7 +262,7 @@
                     <notebook context="{'validate_analytic': True}"
                               attrs="{'invisible': [('state', 'not in', ['ps'])]}">
                         <page string="Training Plan Entries" name="trainingPlanLines">
-                            <field name="training_plan_line_ids" readonly="1">
+                            <field name="training_plan_line_ids">
                                 <tree>
                                     <field name="name"/>
                                     <field name="employee_id"/>
@@ -317,7 +317,7 @@
                     <notebook context="{'validate_analytic': True}"
                               attrs="{'invisible': [('state', 'not in', ['psmd'])]}">
                         <page string="Training Plan Entries" name="trainingPlanLines">
-                            <field name="training_plan_line_ids" readonly="1">
+                            <field name="training_plan_line_ids">
                                 <tree>
                                     <field name="name"/>
                                     <field name="employee_id"/>
@@ -372,7 +372,7 @@
                     <notebook context="{'validate_analytic': True}"
                               attrs="{'invisible': [('state', 'not in', ['approved'])]}">
                         <page string="Training Plan Entries" name="trainingPlanLines">
-                            <field name="training_plan_line_ids" readonly="1">
+                            <field name="training_plan_line_ids">
                                 <tree>
                                     <field name="name"/>
                                     <field name="employee_id"/>
@@ -509,11 +509,11 @@
               parent="training_plan_root"
               action="training_plan_action"
               sequence="-21"/>
-    <menuitem id="menu_create_training_plan"
-              name="CreateTraining Plan"
-              parent="training_plan_root"
-              action="action_create_training_plan"
-              sequence="-20"/>
+<!--    <menuitem id="menu_create_training_plan"-->
+<!--              name="CreateTraining Plan"-->
+<!--              parent="training_plan_root"-->
+<!--              action="action_create_training_plan"-->
+<!--              sequence="-20"/>-->
     <!--    <menuitem id="study_authority"-->
     <!--              name="Authority To Study"-->
     <!--              parent="training_root"-->
