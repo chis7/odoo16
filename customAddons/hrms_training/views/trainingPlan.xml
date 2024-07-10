@@ -79,9 +79,9 @@
                         </group>
                         <group>
                             <group>
-                                <field name="hrdcComment"/>
-                                <field name="psComment"/>
-                                <field name="psmdComment"/>
+                                <field name="hrdcComment" attrs="{'readonly': [('state', '=', 'draft')]}"/>
+                                <field name="psComment" attrs="{'readonly': [('state', '=', 'draft')]}"/>
+                                <field name="psmdComment" attrs="{'readonly': [('state', '=', 'draft')]}"/>
                             </group>
                         </group>
                     </group>
@@ -90,15 +90,15 @@
                         <widget name="web_ribbon" title="Pending HRDC Approval" bg_color="bg-danger"
                                 attrs="{'invisible': [('state', 'not in', ['hrdc'])]}"/>
                         <group>
-                            <field name="name"/>
-                            <field name="province"/>
-                            <field name="institution"/>
-                            <field name="yearOfPlan"/>
+                            <field name="name" attrs="{'readonly': [('state', '=', 'hrdc')]}"/>
+                            <field name="province" attrs="{'readonly': [('state', '=', 'hrdc')]}"/>
+                            <field name="institution" attrs="{'readonly': [('state', '=', 'hrdc')]}"/>
+                            <field name="yearOfPlan" attrs="{'readonly': [('state', '=', 'hrdc')]}"/>
                         </group>
                         <group>
                             <field name="hrdcComment"/>
-                            <field name="psComment"/>
-                            <field name="psmdComment"/>
+                            <field name="psComment" attrs="{'readonly': [('state', '=', 'hrdc')]}"/>
+                            <field name="psmdComment" attrs="{'readonly': [('state', '=', 'hrdc')]}"/>
                         </group>
                     </group>
                     <group context="{'validate_analytic': True}"
@@ -106,15 +106,15 @@
                         <widget name="web_ribbon" title="Pending PS Approval" bg_color="bg-danger"
                                 attrs="{'invisible': [('state', 'not in', ['ps'])]}"/>
                         <group>
-                            <field name="name"/>
-                            <field name="province"/>
-                            <field name="institution"/>
-                            <field name="yearOfPlan"/>
+                            <field name="name" attrs="{'readonly': [('state', '=', 'ps')]}"/>
+                            <field name="province" attrs="{'readonly': [('state', '=', 'ps')]}"/>
+                            <field name="institution" attrs="{'readonly': [('state', '=', 'ps')]}"/>
+                            <field name="yearOfPlan" attrs="{'readonly': [('state', '=', 'ps')]}"/>
                         </group>
                         <group>
-                            <field name="hrdcComment"/>
+                            <field name="hrdcComment" attrs="{'readonly': [('state', '=', 'ps')]}"/>
                             <field name="psComment"/>
-                            <field name="psmdComment"/>
+                            <field name="psmdComment" attrs="{'readonly': [('state', '=', 'ps')]}"/>
                         </group>
                     </group>
                     <group context="{'validate_analytic': True}"
@@ -122,14 +122,14 @@
                         <widget name="web_ribbon" title="Pending PSMD Approval" bg_color="bg-danger"
                                 attrs="{'invisible': [('state', 'not in', ['psmd'])]}"/>
                         <group>
-                            <field name="name"/>
-                            <field name="province"/>
-                            <field name="institution"/>
-                            <field name="yearOfPlan"/>
+                            <field name="name" attrs="{'readonly': [('state', '=', 'psmd')]}"/>
+                            <field name="province" attrs="{'readonly': [('state', '=', 'psmd')]}"/>
+                            <field name="institution" attrs="{'readonly': [('state', '=', 'psmd')]}"/>
+                            <field name="yearOfPlan" attrs="{'readonly': [('state', '=', 'psmd')]}"/>
                         </group>
                         <group>
-                            <field name="hrdcComment"/>
-                            <field name="psComment"/>
+                            <field name="hrdcComment" attrs="{'readonly': [('state', '=', 'psmd')]}"/>
+                            <field name="psComment" attrs="{'readonly': [('state', '=', 'psmd')]}"/>
                             <field name="psmdComment"/>
                         </group>
                     </group>
@@ -138,15 +138,15 @@
                         <widget name="web_ribbon" title="Approved" bg_color="bg-success"
                                 attrs="{'invisible': [('state', 'not in', ['approved'])]}"/>
                         <group>
-                            <field name="name"/>
-                            <field name="province"/>
-                            <field name="institution"/>
-                            <field name="yearOfPlan"/>
+                            <field name="name" attrs="{'readonly': [('state', '=', 'approved')]}"/>
+                            <field name="province" attrs="{'readonly': [('state', '=', 'approved')]}"/>
+                            <field name="institution" attrs="{'readonly': [('state', '=', 'approved')]}"/>
+                            <field name="yearOfPlan" attrs="{'readonly': [('state', '=', 'approved')]}"/>
                         </group>
                         <group>
-                            <field name="hrdcComment"/>
-                            <field name="psComment"/>
-                            <field name="psmdComment"/>
+                            <field name="hrdcComment" attrs="{'readonly': [('state', '=', 'approved')]}"/>
+                            <field name="psComment" attrs="{'readonly': [('state', '=', 'approved')]}"/>
+                            <field name="psmdComment" attrs="{'readonly': [('state', '=', 'approved')]}"/>
                         </group>
                     </group>
                     <notebook context="{'validate_analytic': True}"
