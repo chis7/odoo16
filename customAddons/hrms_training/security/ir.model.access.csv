@@ -10,3 +10,5 @@ access_training_application,access.training.application,model_training_applicati
 access_training_course_evaluation,access.training.course.evaluation,model_training_course_evaluation,,1,1,1,1
 access_training_post_evaluation,access_training_post_evaluation,model_training_post_evaluation,,1,1,1,1
 access_training_supervisor_post_evaluation,access_training_supervisor_post_evaluation,model_training_supervisor_post_evaluation,,1,1,1,1
+access_training_province,access.training.province,model_training_province,,1,1,1,1
+access_training_sponsor,access.training.sponsor,model_training_sponsor,,1,1,1,1
