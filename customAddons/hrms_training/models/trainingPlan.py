@@ -65,8 +65,8 @@ class TrainingPlan(models.Model):
             if employee.user_id and employee.user_id.email:
                 # Sending email
                 mail_values = {
-                    'subject': 'Training Approval',
-                    'body_html': '<p>You have been shortlisted to attend a training and your trainined has been approved</p>',
+                    'subject': 'Approved Training - Yourself',
+                    'body_html': '<p>You have been shortlisted to attend a training and your training program has been approved</p>',
                     'email_to': employee.user_id.email,
                 }
                 mail = self.env['mail.mail'].create(mail_values)
