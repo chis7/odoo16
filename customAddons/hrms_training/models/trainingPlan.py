@@ -2,6 +2,7 @@
 from datetime import datetime
 
 from odoo import api, fields, models, _, SUPERUSER_ID
+import random
 
 
 class TrainingPlan(models.Model):
@@ -44,6 +45,39 @@ class TrainingPlan(models.Model):
     def action_submit_training_plan_to_hrdc(self):
         self.write({'state': 'hrdc'})
 
+
+        group = self.env.ref("training.TrainingPlanHRDC")
+
+        # Fetch users in the group
+        users = group.users
+
+        # Randomly select one user
+        if users:
+            selected_user = random.choice(users)
+
+            # Assuming you have an email template
+            # email_template_xml_id = 'your_module.email_template_xml_id'
+            # email_template = self.env.ref(email_template_xml_id)
+
+            # Send email to the selected user
+            if selected_user.email:
+
+                # Sending email
+                mail_values = {
+                    'subject': 'Request for Approval - Yourself',
+                    'body_html': """<p>You have received a request for approval of a training plan. Click <a href='http://localhost:8069'>here</a> to log in and access the request.</p>""",
+                    'email_to': selected_user.email,
+                }
+                mail = self.env['mail.mail'].create(mail_values)
+                mail.send()
+
+            else:
+                # Handle case where selected user does not have an email
+                pass
+        else:
+            # Handle case where no users are in the group
+            pass
+
     def action_hrdc_approve_training_plan(self):
         self.write({'state': 'ps'})
 
@@ -58,15 +92,14 @@ class TrainingPlan(models.Model):
 
     def action_psmd_approve_training_plan(self):
         self.write({'state': 'approved'})
-        # Assuming 'mail.template' ID for the email to be sent
 
         for line in self.training_plan_line_ids:
             employee = line.employee_id
             if employee.user_id and employee.user_id.email:
                 # Sending email
                 mail_values = {
-                    'subject': 'Approved Training - Yourself',
-                    'body_html': '<p>You have been shortlisted to attend a training and your training program has been approved</p>',
+                    'subject': 'Approved Training - '+ employee.name,
+                    'body_html': """<p>You have been shortlisted to attend a training and your training program has been approved.</p><p> Click <a href='http://localhost:8069'>here</a> to log in and access the request.</p>""",
                     'email_to': employee.user_id.email,
                 }
                 mail = self.env['mail.mail'].create(mail_values)
@@ -74,6 +107,41 @@ class TrainingPlan(models.Model):
 
     def action_psmd_send_back_training_plan(self):
         self.write({'state': 'ps'})
+
+    def send_email_to_random_user_in_group(self):
+        # Replace 'your_group_xml_id' with the actual XML ID of the group
+        group_xml_id = 'your_group_xml_id'
+        group = self.env.ref(group_xml_id)
+
+        # Fetch users in the group
+        users = group.users
+
+        # Randomly select one user
+        if users:
+            selected_user = random.choice(users)
+
+            # Assuming you have an email template
+            # email_template_xml_id = 'your_module.email_template_xml_id'
+            # email_template = self.env.ref(email_template_xml_id)
+
+            # Send email to the selected user
+            if selected_user.email:
+
+                # Sending email
+                mail_values = {
+                    'subject': 'Request for Approval - Yourself',
+                    'body_html': """<p>You have received a request for approval of a training plan. Click <a href='http://localhost:8069'>here</a> to log in and access the request.</p>""",
+                    'email_to':  selected_user.email,
+                }
+                mail = self.env['mail.mail'].create(mail_values)
+                mail.send()
+
+            else:
+                # Handle case where selected user does not have an email
+                pass
+        else:
+            # Handle case where no users are in the group
+            pass
 
     @api.model
     def create(self, vals):
