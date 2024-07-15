@@ -13,6 +13,7 @@
         'hr'
     ],
     'data': [
+        'security/training_security.xml',
         'security/ir.model.access.csv',
         'data/data.xml',
         # 'wizard/createTrainingPlanView.xml',

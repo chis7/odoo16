@@ -46,7 +46,7 @@ class TrainingPlan(models.Model):
         self.write({'state': 'hrdc'})
 
 
-        group = self.env.ref("training.TrainingPlanHRDC")
+        group = self.env.ref("hrms_training.group_HDRC_approve_training_plan")
 
         # Fetch users in the group
         users = group.users
@@ -167,4 +167,10 @@ class TrainingPlanLines(models.Model):
     sponsor = fields.Many2one('training.sponsor', string="Sponsor", required=True, store=True)
     justification_of_training = fields.Text(string="Justification of Training", required=True, store=True)
     estimated_cost_per_year = fields.Integer(string="Estimated Cost per Year", required=True, store=True)
-    training_plan_id = fields.Many2one('training.plan', string="Training Plan", required=True, store=True)
+    training_plan_id = fields.Many2one('training.plan', string="Training Plan", store=True)
+    training_plan_state = fields.Selection(
+        related='training_plan_id.state',
+        string="Training Plan State",
+        readonly=True,
+        store=True
+    )

@@ -33,26 +33,32 @@
                             context="{'validate_analytic': True}"
                             attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
                     <button name="action_hrdc_approve_training_plan" data-hotkey="v"
+                            groups="hrms_training.group_HDRC_approve_training_plan"
                             confirm="Are you sure you want to make this approval?"
                             string="Approve" class="btn-primary" type="object" context="{'validate_analytic': True}"
                             attrs="{'invisible': [('state', 'not in', ['hrdc'])]}"/>
                     <button name="action_hrdc_send_back_training_plan" data-hotkey="v"
+                            groups="hrms_training.group_HDRC_approve_training_plan"
                             confirm="Are you sure you want to send back?"
                             string="Send Back" class="btn-primary" type="object" context="{'validate_analytic': True}"
                             attrs="{'invisible': [('state', 'not in', ['hrdc'])]}"/>
                     <button name="action_ps_approve_training_plan" data-hotkey="v"
+                            groups="hrms_training.group_PS_approve_training_plan"
                             confirm="Are you sure you want to make this approval?"
                             string="Approve" class="btn-primary" type="object" context="{'validate_analytic': True}"
                             attrs="{'invisible': [('state', 'not in', ['ps'])]}"/>
                     <button name="action_ps_send_back_training_plan" data-hotkey="v"
+                            groups="hrms_training.group_PS_approve_training_plan"
                             confirm="Are you sure you want to send back?"
                             string="Send Back" class="btn-primary" type="object" context="{'validate_analytic': True}"
                             attrs="{'invisible': [('state', 'not in', ['ps'])]}"/>
                     <button name="action_psmd_approve_training_plan" data-hotkey="v"
+                            groups="hrms_training.group_PSMD_approve_training_plan"
                             confirm="Are you sure you want to make this approval?"
                             string="Approve" class="btn-primary" type="object" context="{'validate_analytic': True}"
                             attrs="{'invisible': [('state', 'not in', ['psmd'])]}"/>
                     <button name="action_psmd_send_back_training_plan" data-hotkey="v"
+                            groups="hrms_training.group_PSMD_approve_training_plan"
                             confirm="Are you sure you want to send back?"
                             string="Send Back" class="btn-primary" type="object" context="{'validate_analytic': True}"
                             attrs="{'invisible': [('state', 'not in', ['psmd'])]}"/>
@@ -155,6 +161,7 @@
                         <page string="Training Plan Entries" name="trainingPlanLinesDRAFT">
                             <field name="training_plan_line_ids">
                                 <tree editable="top">
+                                    <field name="training_plan_state" invisible="1"/>
                                     <field name="name"/>
                                     <field name="employee_id"/>
                                     <field name="priorityArea"/>
@@ -172,18 +179,19 @@
                     <notebook context="{'validate_analytic': True}"
                               attrs="{'invisible': [('state', 'not in', ['hrdc'])]}">
                         <page string="Training Plan Entries" name="trainingPlanLinesHRDC">
-                            <field name="training_plan_line_ids">
-                                <tree editable="none">
-                                    <field name="name"/>
-                                    <field name="employee_id"/>
-                                    <field name="priorityArea"/>
-                                    <field name="priorityRanking"/>
-                                    <field name="level_of_training_proposed"/>
-                                    <field name="location_of_programme_proposed"/>
-                                    <field name="proposed_date_of_programme"/>
-                                    <field name="sponsor"/>
-                                    <field name="justification_of_training"/>
-                                    <field name="estimated_cost_per_year"/>
+                            <field name="training_plan_line_ids" id="trainingPlanLinesHRDC">
+                                <tree>
+                                    <field name="training_plan_state" invisible="1"/>
+                                    <field name="name" attrs="{'readonly': [('training_plan_state', '=', 'hrdc')]}"/>
+                                    <field name="employee_id" attrs="{'readonly': [('training_plan_state', '=', 'hrdc')]}"/>
+                                    <field name="priorityArea" attrs="{'readonly': [('training_plan_state', '=', 'hrdc')]}"/>
+                                    <field name="priorityRanking" attrs="{'readonly': [('training_plan_state', '=', 'hrdc')]}"/>
+                                    <field name="level_of_training_proposed" attrs="{'readonly': [('training_plan_state', '=', 'hrdc')]}"/>
+                                    <field name="location_of_programme_proposed" attrs="{'readonly': [('training_plan_state', '=', 'hrdc')]}"/>
+                                    <field name="proposed_date_of_programme" attrs="{'readonly': [('training_plan_state', '=', 'hrdc')]}"/>
+                                    <field name="sponsor" attrs="{'readonly': [('training_plan_state', '=', 'hrdc')]}"/>
+                                    <field name="justification_of_training" attrs="{'readonly': [('training_plan_state', '=', 'hrdc')]}"/>
+                                    <field name="estimated_cost_per_year" attrs="{'readonly': [('training_plan_state', '=', 'hrdc')]}"/>
                                 </tree>
                             </field>
                         </page>
@@ -192,17 +200,18 @@
                               attrs="{'invisible': [('state', 'not in', ['ps'])]}">
                         <page string="Training Plan Entries" name="trainingPlanLinesPS">
                             <field name="training_plan_line_ids">
-                                <tree editable="none">
-                                    <field name="name"/>
-                                    <field name="employee_id"/>
-                                    <field name="priorityArea"/>
-                                    <field name="priorityRanking"/>
-                                    <field name="level_of_training_proposed"/>
-                                    <field name="location_of_programme_proposed"/>
-                                    <field name="proposed_date_of_programme"/>
-                                    <field name="sponsor"/>
-                                    <field name="justification_of_training"/>
-                                    <field name="estimated_cost_per_year"/>
+                                <tree>
+                                    <field name="training_plan_state" invisible="1"/>
+                                    <field name="name" attrs="{'readonly': [('training_plan_state', '=', 'ps')]}"/>
+                                    <field name="employee_id" attrs="{'readonly': [('training_plan_state', '=', 'ps')]}"/>
+                                    <field name="priorityArea" attrs="{'readonly': [('training_plan_state', '=', 'ps')]}"/>
+                                    <field name="priorityRanking" attrs="{'readonly': [('training_plan_state', '=', 'ps')]}"/>
+                                    <field name="level_of_training_proposed" attrs="{'readonly': [('training_plan_state', '=', 'ps')]}"/>
+                                    <field name="location_of_programme_proposed" attrs="{'readonly': [('training_plan_state', '=', 'ps')]}"/>
+                                    <field name="proposed_date_of_programme" attrs="{'readonly': [('training_plan_state', '=', 'ps')]}"/>
+                                    <field name="sponsor" attrs="{'readonly': [('training_plan_state', '=', 'ps')]}"/>
+                                    <field name="justification_of_training" attrs="{'readonly': [('training_plan_state', '=', 'ps')]}"/>
+                                    <field name="estimated_cost_per_year" attrs="{'readonly': [('training_plan_state', '=', 'ps')]}"/>
                                 </tree>
                             </field>
                         </page>
@@ -211,17 +220,18 @@
                               attrs="{'invisible': [('state', 'not in', ['psmd'])]}">
                         <page string="Training Plan Entries" name="trainingPlanLinesPSMD">
                             <field name="training_plan_line_ids">
-                                <tree editable="none">
-                                    <field name="name"/>
-                                    <field name="employee_id"/>
-                                    <field name="priorityArea"/>
-                                    <field name="priorityRanking"/>
-                                    <field name="level_of_training_proposed"/>
-                                    <field name="location_of_programme_proposed"/>
-                                    <field name="proposed_date_of_programme"/>
-                                    <field name="sponsor"/>
-                                    <field name="justification_of_training"/>
-                                    <field name="estimated_cost_per_year"/>
+                                <tree>
+                                    <field name="training_plan_state" invisible="1"/>
+                                    <field name="name" attrs="{'readonly': [('training_plan_state', '=', 'psmd')]}"/>
+                                    <field name="employee_id" attrs="{'readonly': [('training_plan_state', '=', 'psmd')]}"/>
+                                    <field name="priorityArea" attrs="{'readonly': [('training_plan_state', '=', 'psmd')]}"/>
+                                    <field name="priorityRanking" attrs="{'readonly': [('training_plan_state', '=', 'psmd')]}"/>
+                                    <field name="level_of_training_proposed" attrs="{'readonly': [('training_plan_state', '=', 'psmd')]}"/>
+                                    <field name="location_of_programme_proposed" attrs="{'readonly': [('training_plan_state', '=', 'psmd')]}"/>
+                                    <field name="proposed_date_of_programme" attrs="{'readonly': [('training_plan_state', '=', 'psmd')]}"/>
+                                    <field name="sponsor" attrs="{'readonly': [('training_plan_state', '=', 'psmd')]}"/>
+                                    <field name="justification_of_training" attrs="{'readonly': [('training_plan_state', '=', 'psmd')]}"/>
+                                    <field name="estimated_cost_per_year" attrs="{'readonly': [('training_plan_state', '=', 'psmd')]}"/>
                                 </tree>
                             </field>
                         </page>
@@ -230,17 +240,18 @@
                               attrs="{'invisible': [('state', 'not in', ['approved'])]}">
                         <page string="Training Plan Entries" name="trainingPlanLinesAPPROVED">
                             <field name="training_plan_line_ids">
-                                <tree editable="none">
-                                    <field name="name"/>
-                                    <field name="employee_id"/>
-                                    <field name="priorityArea"/>
-                                    <field name="priorityRanking"/>
-                                    <field name="level_of_training_proposed"/>
-                                    <field name="location_of_programme_proposed"/>
-                                    <field name="proposed_date_of_programme"/>
-                                    <field name="sponsor"/>
-                                    <field name="justification_of_training"/>
-                                    <field name="estimated_cost_per_year"/>
+                                <tree>
+                                    <field name="training_plan_state" invisible="1"/>
+                                    <field name="name" attrs="{'readonly': [('training_plan_state', '=', 'approved')]}"/>
+                                    <field name="employee_id" attrs="{'readonly': [('training_plan_state', '=', 'approved')]}"/>
+                                    <field name="priorityArea" attrs="{'readonly': [('training_plan_state', '=', 'approved')]}"/>
+                                    <field name="priorityRanking" attrs="{'readonly': [('training_plan_state', '=', 'approved')]}"/>
+                                    <field name="level_of_training_proposed" attrs="{'readonly': [('training_plan_state', '=', 'approved')]}"/>
+                                    <field name="location_of_programme_proposed" attrs="{'readonly': [('training_plan_state', '=', 'approved')]}"/>
+                                    <field name="proposed_date_of_programme" attrs="{'readonly': [('training_plan_state', '=', 'approved')]}"/>
+                                    <field name="sponsor" attrs="{'readonly': [('training_plan_state', '=', 'approved')]}"/>
+                                    <field name="justification_of_training" attrs="{'readonly': [('training_plan_state', '=', 'approved')]}"/>
+                                    <field name="estimated_cost_per_year" attrs="{'readonly': [('training_plan_state', '=', 'approved')]}"/>
                                 </tree>
                             </field>
                         </page>
